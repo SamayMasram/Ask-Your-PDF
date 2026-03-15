@@ -113,7 +113,8 @@ def chat(
 
 with gr.Blocks(title="Ask Your PDF") as demo:
     gr.Markdown(
-        "##Ask Your PDF\n"
+        "## Ask Your PDF\n\n"
+
         "Upload one or more PDFs, then chat with your documents.\n\n"
     )
 
