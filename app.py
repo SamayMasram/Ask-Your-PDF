@@ -237,3 +237,4 @@ with gr.Blocks(title="Ask Your PDF") as demo:
 
 if __name__ == "__main__":
     demo.launch(share=True, theme=gr.themes.Soft(), css=css_string)
+    
