@@ -111,6 +111,64 @@ def chat(
     return history, chain, pdf_paths
 
 
+css_string = """
+    .gradio-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .gr-button {
+        background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        border: none;
+        border-radius: 25px;
+        color: white;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+    .gr-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .gr-textbox {
+        border-radius: 15px;
+        border: 2px solid #ddd;
+        transition: border-color 0.3s ease;
+    }
+    .gr-textbox:focus {
+        border-color: #4ECDC4;
+        box-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+    }
+    .gr-file {
+        border-radius: 15px;
+        border: 2px dashed #4ECDC4;
+        background: rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+    .gr-file:hover {
+        border-color: #FF6B6B;
+        background: rgba(255, 107, 107, 0.1);
+    }
+    .gr-radio {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 10px;
+    }
+    .gr-chatbot {
+        border-radius: 15px;
+        border: 2px solid #ddd;
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .gr-markdown {
+        text-align: center;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    .gr-row {
+        margin-bottom: 20px;
+    }
+    """
+
 with gr.Blocks(title="Ask Your PDF") as demo:
     gr.Markdown(
         "## Ask Your PDF\n\n"
@@ -157,4 +215,4 @@ with gr.Blocks(title="Ask Your PDF") as demo:
 
 
 if __name__ == "__main__":
-    demo.launch(share=True)
+    demo.launch(share=True, theme=gr.themes.Soft(), css=css_string)
