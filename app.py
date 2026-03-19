@@ -221,20 +221,20 @@ with gr.Blocks(title="Ask Your PDF") as demo:
                 label="Theme",
             )
 
-            theme.change(
-                fn=lambda t: t,
-                inputs=[theme],
-                outputs=[theme],
-                _js="""
-                (theme) => {
-                    const root = document.querySelector('.gradio-container');
-                    if (!root) return theme;
-                    root.classList.toggle('dark-mode', theme === 'Dark');
-                    root.classList.toggle('light-mode', theme === 'Light');
-                    return theme;
-                }
-                """,
-            )
+            theme_script = gr.HTML(visible=False)
+
+            def apply_theme(selected_theme: str) -> str:
+                return (
+                    "<script>"
+                    "const root = document.querySelector('.gradio-container');"
+                    "if (root) {"
+                    f" root.classList.toggle('dark-mode', {selected_theme!r} === 'Dark');"
+                    f" root.classList.toggle('light-mode', {selected_theme!r} === 'Light');"
+                    "}"
+                    "</script>"
+                )
+
+            theme.change(fn=apply_theme, inputs=[theme], outputs=[theme_script])
 
         with gr.Column(scale=2):
             chatbot = gr.Chatbot(label="Chat with your PDFs")
