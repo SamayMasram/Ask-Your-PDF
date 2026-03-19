@@ -112,9 +112,10 @@ def chat(
 
 
 css_string = """
+    /* Dark theme as default */
     .gradio-container {
-        background: #f6f8fb;
-        color: #1f2937;
+        background: #0f172a;
+        color: #e2e8f0;
         font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     .gradio-container.light-mode {
@@ -229,20 +230,21 @@ with gr.Blocks(title="Ask Your PDF") as demo:
                 label="Theme",
             )
 
-            theme_script = gr.HTML(visible=False)
+            theme_style = gr.HTML(visible=False)
 
             def apply_theme(selected_theme: str) -> str:
-                return (
-                    "<script>"
-                    "const root = document.querySelector('.gradio-container');"
-                    "if (root) {"
-                    f" root.classList.toggle('dark-mode', {selected_theme!r} === 'Dark');"
-                    f" root.classList.toggle('light-mode', {selected_theme!r} === 'Light');"
-                    "}"
-                    "</script>"
-                )
+                selected = selected_theme.lower()
+                return f"""
+                <script>
+                const root = document.querySelector('.gradio-container');
+                if (root) {{
+                    root.classList.remove('light-mode', 'dark-mode');
+                    root.classList.add('{selected}-mode');
+                }}
+                </script>
+                """
 
-            theme.change(fn=apply_theme, inputs=[theme], outputs=[theme_script])
+            theme.change(fn=apply_theme, inputs=[theme], outputs=[theme_style])
 
 
         with gr.Column(scale=2):
