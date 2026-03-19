@@ -113,59 +113,67 @@ def chat(
 
 css_string = """
     .gradio-container {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f6f8fb;
+        color: #1f2937;
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .gr-block {
+        padding: 24px;
+        margin: 0 auto;
+        max-width: 1100px;
+    }
+    .gradio-container .section-title,
+    .gr-markdown {
+        color: #1f2937;
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    .gradio-container .description {
+        color: #4b5563;
+        font-size: 1rem;
+        margin-bottom: 24px;
     }
     .gr-button {
-        background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
         border: none;
-        border-radius: 25px;
-        color: white;
-        font-weight: bold;
-        transition: all 0.3s ease;
+        color: #fff;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 10px 20px;
+        box-shadow: 0 8px 20px rgba(31, 41, 55, 0.12);
+        transition: all 0.2s ease;
     }
     .gr-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(31, 41, 55, 0.18);
     }
-    .gr-textbox {
-        border-radius: 15px;
-        border: 2px solid #ddd;
-        transition: border-color 0.3s ease;
+    .gr-textbox, .gr-file, .gr-radio, .gr-chatbot {
+        border-radius: 12px !important;
+        border: 1px solid #d1d5db !important;
+        background: #fff !important;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
     }
-    .gr-textbox:focus {
-        border-color: #4ECDC4;
-        box-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
-    }
-    .gr-file {
-        border-radius: 15px;
-        border: 2px dashed #4ECDC4;
-        background: rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-    }
-    .gr-file:hover {
-        border-color: #FF6B6B;
-        background: rgba(255, 107, 107, 0.1);
-    }
-    .gr-radio {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 10px;
+    .gr-textbox:focus, .gr-file:focus, .gr-radio:focus {
+        border-color: #2563eb !important;
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.18) !important;
     }
     .gr-chatbot {
-        border-radius: 15px;
-        border: 2px solid #ddd;
-        background: rgba(255, 255, 255, 0.9);
-    }
-    .gr-markdown {
-        text-align: center;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        font-size: 1.5em;
-        margin-bottom: 20px;
+        padding: 16px;
+        min-height: 360px;
+        background: #ffffff !important;
     }
     .gr-row {
-        margin-bottom: 20px;
+        gap: 20px;
+        margin-bottom: 18px;
+    }
+    .gradio-container .footer {
+        color: #6b7280;
+        font-size: 0.88rem;
+        text-align: center;
+        margin-top: 18px;
     }
     """
 
