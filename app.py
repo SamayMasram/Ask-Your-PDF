@@ -117,6 +117,14 @@ css_string = """
         color: #1f2937;
         font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+    .gradio-container.light-mode {
+        background: #f6f8fb;
+        color: #1f2937;
+    }
+    .gradio-container.dark-mode {
+        background: #0f172a;
+        color: #e2e8f0;
+    }
     .gr-block {
         padding: 24px;
         margin: 0 auto;
@@ -156,6 +164,15 @@ css_string = """
         background: #fff !important;
         box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
     }
+    .gradio-container.dark-mode .gr-textbox,
+    .gradio-container.dark-mode .gr-file,
+    .gradio-container.dark-mode .gr-radio,
+    .gradio-container.dark-mode .gr-chatbot {
+        border-color: #334155 !important;
+        background: #1e293b !important;
+        color: #e2e8f0 !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
     .gr-textbox:focus, .gr-file:focus, .gr-radio:focus {
         border-color: #2563eb !important;
         box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.18) !important;
@@ -193,9 +210,30 @@ with gr.Blocks(title="Ask Your PDF") as demo:
             )
 
             mode = gr.Radio(
-                choices=["PDF Only", "PDF + Web Search"],
+                choices=["PDF Only", "Web Search"],
                 value="PDF Only",
                 label="Mode",
+            )
+
+            theme = gr.Radio(
+                choices=["Light", "Dark"],
+                value="Light",
+                label="Theme",
+            )
+
+            theme.change(
+                fn=lambda t: t,
+                inputs=[theme],
+                outputs=[theme],
+                _js="""
+                (theme) => {
+                    const root = document.querySelector('.gradio-container');
+                    if (!root) return theme;
+                    root.classList.toggle('dark-mode', theme === 'Dark');
+                    root.classList.toggle('light-mode', theme === 'Light');
+                    return theme;
+                }
+                """,
             )
 
         with gr.Column(scale=2):
