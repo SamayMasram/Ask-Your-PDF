@@ -112,10 +112,26 @@ def chat(
 
 
 css_string = """
-    .gradio-container, .gradio-container.dark-mode {
+    .gradio-container {
+        background: #f6f8fb;
+        color: #1f2937;
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .gradio-container.light-mode {
+        background: #f6f8fb;
+        color: #1f2937;
+    }
+    .gradio-container.dark-mode {
         background: #0f172a;
         color: #e2e8f0;
-        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .gradio-container.dark-mode .gr-markdown,
+    .gradio-container.dark-mode .gradio-container .section-title {
+        color: #e2e8f0;
+    }
+    .gradio-container.light-mode .gr-markdown,
+    .gradio-container.light-mode .gradio-container .section-title {
+        color: #1f2937;
     }
     .gr-block {
         padding: 24px;
@@ -207,8 +223,26 @@ with gr.Blocks(title="Ask Your PDF") as demo:
                 label="Mode",
             )
 
-            # Dark theme only; no light toggle required.
-            gr.Markdown("**Theme:** Dark", elem_id="theme-label")
+            theme = gr.Radio(
+                choices=["Light", "Dark"],
+                value="Dark",
+                label="Theme",
+            )
+
+            theme_script = gr.HTML(visible=False)
+
+            def apply_theme(selected_theme: str) -> str:
+                return (
+                    "<script>"
+                    "const root = document.querySelector('.gradio-container');"
+                    "if (root) {"
+                    f" root.classList.toggle('dark-mode', {selected_theme!r} === 'Dark');"
+                    f" root.classList.toggle('light-mode', {selected_theme!r} === 'Light');"
+                    "}"
+                    "</script>"
+                )
+
+            theme.change(fn=apply_theme, inputs=[theme], outputs=[theme_script])
 
 
         with gr.Column(scale=2):
